@@ -91,14 +91,14 @@ class CocoWholeBody(Dataset):
 
             body_kpts = target["keypoints"]
             foot_kpts = target["foot_kpts"]
-            # face_kpts = target["face_kpts"]
+            face_kpts = target["face_kpts"]
             lefthand_kpts = target["lefthand_kpts"]
             righthand_kpts = target['righthand_kpts']
 
             kpts = []
             kpts.extend(body_kpts)
             kpts.extend(foot_kpts)
-            # kpts.extend(face_kpts)
+            kpts.extend(face_kpts)
             kpts.extend(lefthand_kpts)
             kpts.extend(righthand_kpts)
 

@@ -41,8 +41,8 @@ if __name__ == '__main__':
     weights = KeypointRCNN_ResNet50_FPN_Weights.DEFAULT
     transform = weights.transforms()
 
-    dataset = CocoWholeBody(root="./coco/val2017",
-                            annFile="./coco/annotations/coco_wholebody_val_v1.0.json",
+    dataset = CocoWholeBody(root="./coco/train2017",
+                            annFile="./coco/annotations/coco_wholebody_train_v1.0.json",
                             transform=transform)
 
     dataset = _coco_remove_images_without_annotations(dataset)
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     optimizer = SGD(params, lr=LEARN_RATE, momentum=MOMENTUM, weight_decay=WEIGHT_DECAY)
     lr_scheduler = MultiStepLR(optimizer, milestones=MILESTONES, gamma=GAMMA)
 
-    status_bar = tqdm(range(0, 46))
+    status_bar = tqdm(range(0, EPOCHS))
 
     for epoch in status_bar:
         train_one_epoch(model=model,

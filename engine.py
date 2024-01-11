@@ -20,7 +20,6 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, status_bar, pr
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
         loss_dict = model(images, targets)
-
         losses = sum(loss for loss in loss_dict.values())
 
         if not math.isfinite(losses):

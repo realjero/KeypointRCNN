@@ -37,8 +37,8 @@ def _coco_remove_images_without_annotations(dataset):
             return True
         return False
 
-    print("Removing images without annotations...")
-    status_data = tqdm(enumerate(dataset), desc="Processing", total=len(dataset), unit="images")
+    print("Removing targets without annotations...")
+    status_data = tqdm(enumerate(dataset), desc="Processing", total=len(dataset), unit="targets")
     ids = []
     for i, (image, targets) in status_data:
         if _has_valid_annotation(targets):
