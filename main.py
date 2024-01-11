@@ -71,4 +71,4 @@ if __name__ == '__main__':
         # https://github.com/alexppppp/keypoint_rcnn_training_pytorch/blob/main/train.py
 
     # save model
-    torch.save(model.state_dict(), '.pth')
+    torch.save(model.state_dict(), f'e{EPOCHS}_b{BATCH_SIZE}_lr{LEARN_RATE}_m{MOMENTUM}.pth')

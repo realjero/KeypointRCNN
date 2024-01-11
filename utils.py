@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 from torch.utils.data import Subset
+from tqdm import tqdm
 
 
 def plot_keypoints(kpts):
@@ -36,10 +37,13 @@ def _coco_remove_images_without_annotations(dataset):
             return True
         return False
 
+    print("Removing images without annotations...")
+    status_data = tqdm(enumerate(dataset), desc="Processing", total=len(dataset), unit="images")
     ids = []
-    for i, (image, targets) in enumerate(dataset):
+    for i, (image, targets) in status_data:
         if _has_valid_annotation(targets):
             ids.append(i)
 
     dataset = Subset(dataset, ids)
+    print(f"{len(dataset)} targets remain")
     return dataset
