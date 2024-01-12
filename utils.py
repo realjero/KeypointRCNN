@@ -10,7 +10,7 @@ def plot_keypoints(kpts):
             if v >= 0.9:
                 plt.scatter(x, y, color='blue', marker='o', s=1)
 
-
+# TODO: Integrate this function in CocoWholeBOdy using the ids
 def _coco_remove_images_without_annotations(dataset):
     def _has_only_empty_bbox(anno):
         return all(any(o <= 1 for o in obj[2:]) for obj in anno["boxes"])
@@ -18,7 +18,8 @@ def _coco_remove_images_without_annotations(dataset):
     def _count_visible_keypoints(anno):
         return sum(sum(1 for x, y, v in ann if v > 0) for ann in anno["keypoints"])
 
-    min_keypoints_per_image = 10
+    # TODO: Think about changing this proportionally to NUM_KEYPOINTS
+    min_keypoints_per_image = 50
 
     def _has_valid_annotation(anno):
         # if it's empty, there is no annotation
