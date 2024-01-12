@@ -9,7 +9,7 @@ def plot_keypoints(kpts):
                 plt.scatter(x, y, color='blue', marker='o', s=1)
 
 
-def _has_valid_annotation(anno, min_keypoints_per_image):
+def has_valid_annotation(anno, min_keypoints_per_image):
     def _has_only_empty_bbox(anno):
         return all(any(o <= 1 for o in obj["bbox"][2:]) for obj in anno)
 

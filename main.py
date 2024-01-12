@@ -7,9 +7,8 @@ from tqdm import tqdm
 
 from dataset import CocoWholeBody
 from engine import train_one_epoch
-from utils import _coco_remove_images_without_annotations
 
-EPOCHS = 46
+EPOCHS = 42
 BATCH_SIZE = 8
 NUM_KEYPOINTS = 133
 

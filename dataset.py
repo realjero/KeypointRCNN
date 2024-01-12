@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 from torchvision.datasets import CocoDetection
 from tqdm import tqdm
 
-from utils import _has_valid_annotation
+from utils import has_valid_annotation
 
 
 class CocoKeypoint:
@@ -74,7 +74,7 @@ class CocoWholeBody(Dataset):
             filtered_ids = []
             for img_id in filter_status:
                 annotations = self._load_target(img_id)
-                if _has_valid_annotation(annotations, min_keypoints_per_image):
+                if has_valid_annotation(annotations, min_keypoints_per_image):
                     filtered_ids.append(img_id)
             self.ids = filtered_ids
             print(f"{len(self.ids)} targets remain")
