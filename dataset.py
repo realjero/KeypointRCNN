@@ -5,6 +5,9 @@ import torch
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision.datasets import CocoDetection
+from tqdm import tqdm
+
+from utils import _has_valid_annotation
 
 
 class CocoKeypoint:
@@ -53,12 +56,28 @@ class CocoKeypoint:
 
 
 class CocoWholeBody(Dataset):
-    def __init__(self, root: str, annFile: str, transform=None, target_transform=None) -> None:
+    def __init__(self, root: str, annFile: str, min_keypoints_per_image=None, transform=None, target_transform=None):
         from xtcocotools.coco import COCO
 
+        self.root = root
         self.coco = COCO(annFile)
         self.ids = list(sorted(self.coco.imgs.keys()))
-        self.root = root
+
+        if min_keypoints_per_image is not None:
+            print("Removing targets without annotations...")
+            filter_status = tqdm(self.ids,
+                                 desc="Processing",
+                                 total=len(self.ids),
+                                 unit="targets",
+                                 mininterval=60)
+
+            filtered_ids = []
+            for img_id in filter_status:
+                annotations = self._load_target(img_id)
+                if _has_valid_annotation(annotations, min_keypoints_per_image):
+                    filtered_ids.append(img_id)
+            self.ids = filtered_ids
+            print(f"{len(self.ids)} targets remain")
 
         # TODO: Create augmentations for image and targets
         self.transform = transform
@@ -83,12 +102,8 @@ class CocoWholeBody(Dataset):
         labels = []
         keypoints = []
         for target in targets:
-            # Transform XYWH to XYXY
             bbox = target["bbox"]
-            boxes.append([bbox[0], bbox[1], bbox[0] + bbox[2], bbox[1] + bbox[3]])
-
-            labels.append(target['category_id'])
-
+            label = target['category_id']
             body_kpts = target["keypoints"]
             foot_kpts = target["foot_kpts"]
             face_kpts = target["face_kpts"]
@@ -102,6 +117,9 @@ class CocoWholeBody(Dataset):
             kpts.extend(lefthand_kpts)
             kpts.extend(righthand_kpts)
 
+            # XYWH to XYXY
+            boxes.append([bbox[0], bbox[1], bbox[0] + bbox[2], bbox[1] + bbox[3]])
+            labels.append(label)
             keypoints.append(_kpts_to_matrix(kpts))
 
         boxes = torch.tensor(boxes, dtype=torch.float)
