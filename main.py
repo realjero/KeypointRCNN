@@ -43,9 +43,8 @@ if __name__ == '__main__':
 
     dataset = CocoWholeBody(root="./coco/train2017",
                             annFile="./coco/annotations/coco_wholebody_train_v1.0.json",
+                            min_keypoints_per_image=55,
                             transform=transform)
-
-    dataset = _coco_remove_images_without_annotations(dataset)
 
     data_loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate_fn)
 
