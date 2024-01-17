@@ -28,7 +28,7 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, status_bar, pr
         optimizer.zero_grad()
         losses.backward()
         optimizer.step()
-        status_bar.set_description(f"Loss: {losses:.5f}")
+        status_bar.set_description(f"Loss: {losses:.5f}") # TODO: PRINT EVERY LOSS SEPARATLY
 
         if sched is not None:
             sched.step()

@@ -6,7 +6,7 @@ def plot_keypoints(kpts):
         for kpt in p:
             x, y, v = kpt
             if v >= 0.9:
-                plt.scatter(x, y, color='blue', marker='o', s=1)
+                plt.scatter(x, y, color='green', marker='o', s=0.1)
 
 
 def has_valid_annotation(anno, min_keypoints_per_image):
