@@ -83,7 +83,7 @@ if __name__ == '__main__':
         train_loss.append(train)
         val_loss.append(val)
 
-        torch.save(model.state_dict(), f'checkpoint_{epoch}.pth')
+        torch.save(model.state_dict(), f'./temp/checkpoint_{epoch}.pth')
 
     # save model
     torch.save(model.state_dict(), f'e{EPOCHS}_b{BATCH_SIZE}_lr{LEARN_RATE}_m{MOMENTUM}.pth')

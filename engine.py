@@ -40,7 +40,8 @@ def train_one_epoch(model, optimizer, train_loader, val_loader, device, epoch, s
             loss_objectness = loss_dict["loss_objectness"]
             loss_rpn_box_reg = loss_dict["loss_rpn_box_reg"]
 
-            status_bar.set_description(f"{loss_classifier=:.5f} "
+            status_bar.set_description(f"{losses=:.5f} "
+                                       f"{loss_classifier=:.5f} "
                                        f"{loss_box_reg=:.5f} "
                                        f"{loss_keypoint=:.5f} "
                                        f"{loss_objectness=:.5f} "
