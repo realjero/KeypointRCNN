@@ -14,11 +14,7 @@ def has_valid_annotation(anno, min_keypoints_per_image):
         return all(any(o <= 1 for o in obj["bbox"][2:]) for obj in anno)
 
     def _count_visible_keypoints(anno):
-        return sum(sum(1 for v in ann["keypoints"][2::3] if v > 0) +
-                   sum(1 for v in ann["foot_kpts"][2::3] if v > 0) +
-                   sum(1 for v in ann["face_kpts"][2::3] if v > 0) +
-                   sum(1 for v in ann["lefthand_kpts"][2::3] if v > 0) +
-                   sum(1 for v in ann["righthand_kpts"][2::3] if v > 0) for ann in anno)
+        return sum(sum(1 for v in ann["keypoints"][2::3] if v > 0) for ann in anno)
 
     # if it's empty, there is no annotation
     if len(anno) == 0:

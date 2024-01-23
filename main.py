@@ -5,8 +5,9 @@ from torch.utils.data import DataLoader
 from torchvision.models.detection import keypointrcnn_resnet50_fpn, KeypointRCNN_ResNet50_FPN_Weights
 from tqdm import tqdm
 
-from dataset import CocoWholeBody
+from dataset import CocoKeypoint
 from engine import train_one_epoch
+from transforms import Compose, ToTensor, ToDtype, Normalize
 
 EPOCHS = 42
 BATCH_SIZE = 8
@@ -38,12 +39,16 @@ if __name__ == '__main__':
     print(f"Torch device={device}")
 
     weights = KeypointRCNN_ResNet50_FPN_Weights.DEFAULT
-    transform = weights.transforms()
+    transform = Compose([
+        ToTensor(),
+        ToDtype(),
+        Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
 
-    dataset = CocoWholeBody(root="./coco/train2017",
-                            annFile="./coco/annotations/coco_wholebody_train_v1.0.json",
-                            min_keypoints_per_image=55,
-                            transform=transform)
+    dataset = CocoKeypoint(root="./coco/val2017",
+                           annFile="./coco/annotations/person_keypoints_val2017.json",
+                           min_keypoints_per_image=11,
+                           transform=transform)
 
     data_loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate_fn)
 
