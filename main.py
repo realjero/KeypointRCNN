@@ -46,13 +46,20 @@ if __name__ == '__main__':
         Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
+    transform_val = Compose([
+        ToTensor(),
+        ToDtype(),
+        Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+
     train_dataset = CocoKeypoint(root="./coco/train2017",
                                  annFile="./coco/annotations/person_keypoints_train2017.json",
                                  min_keypoints_per_image=11,
                                  transform=transform)
 
     val_dataset = CocoKeypoint(root="./coco/val2017",
-                               annFile="./coco/annotations/person_keypoints_val2017.json")
+                               annFile="./coco/annotations/person_keypoints_val2017.json",
+                               transform=transform_val)
 
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate_fn)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn)
