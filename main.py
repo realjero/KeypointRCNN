@@ -52,8 +52,7 @@ if __name__ == '__main__':
                                  transform=transform)
 
     val_dataset = CocoKeypoint(root="./coco/val2017",
-                               annFile="./coco/annotations/person_keypoints_val2017.json",
-                               transform=transform)
+                               annFile="./coco/annotations/person_keypoints_val2017.json")
 
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate_fn)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn)
