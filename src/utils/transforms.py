@@ -2,15 +2,15 @@ import matplotlib.pyplot as plt
 import torch
 from torchvision.transforms import functional as F
 
-from dataset import CocoKeypoint
-from utils import flip_coco_person_keypoints, plot_keypoints
+from src.utils.coco_utils import CocoKeypoint
+from src.utils.utils import plot_keypoints
 
 
 class Compose:
     def __init__(self, transforms):
         self.transforms = transforms
 
-    def __call__(self, image, target):
+    def __call__(self, image, target=None):
         for t in self.transforms:
             image, target = t(image, target)
         return image, target
@@ -21,19 +21,19 @@ class Normalize:
         self.mean = mean
         self.std = std
 
-    def __call__(self, image, target):
+    def __call__(self, image, target=None):
         image = F.normalize(image, mean=self.mean, std=self.std)
         return image, target
 
 
 class ToTensor:
-    def __call__(self, image, target):
+    def __call__(self, image, target=None):
         image = F.pil_to_tensor(image)
         return image, target
 
 
 class ToDtype:
-    def __call__(self, image, target):
+    def __call__(self, image, target=None):
         image = F.convert_image_dtype(image, dtype=torch.float)
         return image, target
 
@@ -42,7 +42,7 @@ class RandomHorizontalFlip:
     def __init__(self, p=0.4):
         self.p = p
 
-    def __call__(self, image, target):
+    def __call__(self, image, target=None):
         if torch.rand(1) < self.p:
             image = F.hflip(image)
             if target is not None:
@@ -55,16 +55,30 @@ class RandomHorizontalFlip:
         return image, target
 
 
-if __name__ == '__main__':
-    transform = Compose([
-        RandomHorizontalFlip(p=0.5),
-        ToTensor(),
-        ToDtype(),
-        # Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
+def flip_coco_person_keypoints(kps, width):
+    flip_inds = [0, 2, 1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11, 14, 13, 16, 15]
+    flipped_data = kps[:, flip_inds]
+    flipped_data[..., 0] = width - flipped_data[..., 0]
+    # Maintain COCO convention that if visibility == 0, then x, y = 0
+    inds = flipped_data[..., 2] == 0
+    flipped_data[inds] = 0
+    return flipped_data
 
-    train_dataset = CocoKeypoint(root="./coco/val2017",
-                                 annFile="./coco/annotations/person_keypoints_val2017.json",
+
+transform = Compose([
+    RandomHorizontalFlip(p=0.5),
+    ToTensor(),
+    ToDtype(),
+])
+
+transform_val = Compose([
+    ToTensor(),
+    ToDtype(),
+])
+
+if __name__ == '__main__':
+    train_dataset = CocoKeypoint(root="../../coco/val2017",
+                                 annFile="../../coco/annotations/person_keypoints_val2017.json",
                                  min_keypoints_per_image=11,
                                  transform=transform)
     image, targets = train_dataset[0]

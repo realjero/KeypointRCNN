@@ -6,9 +6,10 @@ from torch.utils.data import DataLoader
 from torchvision.models.detection import keypointrcnn_resnet50_fpn
 from tqdm import tqdm
 
-from dataset import CocoKeypoint
-from engine import train_one_epoch
-from transforms import Compose, ToTensor, ToDtype, Normalize, RandomHorizontalFlip
+from src.utils.coco_utils import CocoKeypoint
+from src.utils.engine import train_one_epoch
+from src.utils.transforms import transform, transform_val
+from src.utils.utils import device
 
 EPOCHS = 42
 BATCH_SIZE = 8
@@ -29,36 +30,16 @@ def collate_fn(batch):
 
 
 if __name__ == '__main__':
-    # Check if CUDA (GPU) is available
-    device = (
-        "cuda"
-        if torch.cuda.is_available()
-        else "mps"
-        if torch.backends.mps.is_available()
-        else "cpu"
-    )
-    print(f"Torch device={device}")
-
-    transform = Compose([
-        RandomHorizontalFlip(p=0.5),
-        ToTensor(),
-        ToDtype(),
-        Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-
-    transform_val = Compose([
-        ToTensor(),
-        ToDtype(),
-        Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-
-    train_dataset = CocoKeypoint(root="./coco/train2017",
-                                 annFile="./coco/annotations/person_keypoints_train2017.json",
+    train_dataset = CocoKeypoint(root="../coco/train2017",
+                                 annFile="../coco/annotations/person_keypoints_train2017.json",
                                  min_keypoints_per_image=11,
+                                 train=True,
                                  transform=transform)
 
-    val_dataset = CocoKeypoint(root="./coco/val2017",
-                               annFile="./coco/annotations/person_keypoints_val2017.json",
+    # This was a dumb idea train/val/test
+    val_dataset = CocoKeypoint(root="../coco/val2017",
+                               annFile="../coco/annotations/person_keypoints_val2017.json",
+                               min_keypoints_per_image=1,
                                transform=transform_val)
 
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate_fn)
@@ -89,10 +70,10 @@ if __name__ == '__main__':
         train_loss.append(train)
         val_loss.append(val)
 
-        torch.save(model.state_dict(), f'./temp/checkpoint_{epoch}.pth')
+        torch.save(model.state_dict(), f'../temp/checkpoint_{epoch}.pth')
 
     # save model
-    torch.save(model.state_dict(), f'e{EPOCHS}_b{BATCH_SIZE}_lr{LEARN_RATE}_m{MOMENTUM}.pth')
+    torch.save(model.state_dict(), f'../e{EPOCHS}_b{BATCH_SIZE}_lr{LEARN_RATE}_m{MOMENTUM}.pth')
 
     plt.plot(range(0, EPOCHS), train_loss, label='Train Loss')
     plt.plot(range(0, EPOCHS), val_loss, label='Valid Loss')
@@ -101,6 +82,3 @@ if __name__ == '__main__':
     plt.legend()
     plt.savefig(f"e{EPOCHS}_b{BATCH_SIZE}_lr{LEARN_RATE}_m{MOMENTUM}.png")
     plt.show()
-
-    # TODO: Evaluate
-    # https://github.com/alexppppp/keypoint_rcnn_training_pytorch/blob/main/train.py
