@@ -34,9 +34,14 @@ python train.py
 python validation.py
 ```
 
-#### 🎥Live Showcase
+#### 🎥Live Showcase with Webcam
 ```
-python webcam.py
+python detect.py
+```
+
+#### 🎥Showcase Image
+```
+python detect.py --file image.png
 ```
 
 
