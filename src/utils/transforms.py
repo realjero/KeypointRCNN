@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import torch
 from torchvision.transforms import functional as F
 
-from src.utils.coco_utils import CocoKeypoint
-from src.utils.utils import plot_keypoints
+from coco_utils import CocoKeypoint
+from utils import plot_keypoints
 
 
 class Compose:

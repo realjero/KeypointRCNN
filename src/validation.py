@@ -3,10 +3,10 @@ from torch.utils.data import DataLoader
 from torchvision.models.detection import keypointrcnn_resnet50_fpn
 from tqdm import tqdm
 
-from src.train import collate_fn
-from src.utils.coco_utils import CocoKeypoint, CocoEvaluator
-from src.utils.transforms import transform_val
-from src.utils.utils import device
+from train import collate_fn
+from utils.coco_utils import CocoKeypoint, CocoEvaluator
+from utils.transforms import transform_val
+from utils.utils import device
 
 if __name__ == '__main__':
     val_dataset = CocoKeypoint(root="../coco/val2017",

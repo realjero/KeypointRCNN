@@ -6,10 +6,10 @@ from torch.utils.data import DataLoader
 from torchvision.models.detection import keypointrcnn_resnet50_fpn
 from tqdm import tqdm
 
-from src.utils.coco_utils import CocoKeypoint
-from src.utils.engine import train_one_epoch
-from src.utils.transforms import transform, transform_val
-from src.utils.utils import device
+from utils.coco_utils import CocoKeypoint
+from utils.engine import train_one_epoch
+from utils.transforms import transform, transform_val
+from utils.utils import device
 
 EPOCHS = 42
 BATCH_SIZE = 8

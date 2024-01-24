@@ -2,8 +2,8 @@ import cv2
 from PIL import Image
 from torchvision.models.detection import KeypointRCNN_ResNet50_FPN_Weights, keypointrcnn_resnet50_fpn
 
-from src.utils.transforms import transform_val
-from src.utils.utils import device
+from utils.transforms import transform_val
+from utils.utils import device
 
 if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
