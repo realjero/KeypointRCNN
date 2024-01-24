@@ -1,2 +1,5 @@
 # Project exclude paths
 /coco/
+__pycache__
+1_prepare.out
+container.sqfs
