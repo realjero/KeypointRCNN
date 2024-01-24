@@ -62,6 +62,7 @@ class CocoKeypoint(Dataset):
         boxes = torch.tensor(boxes, dtype=torch.float)
         labels = torch.tensor(labels, dtype=torch.int64)
         keypoints = torch.tensor(keypoints, dtype=torch.float)
+        image_id = torch.tensor(image, dtype=torch.int)
 
         targets = {
             "boxes": boxes,
