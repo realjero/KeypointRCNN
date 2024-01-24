@@ -9,4 +9,4 @@
 #SBATCH --time 0-00:20:00
 #SBATCH --output 1_prepare.out
 
-pip install xtcocotools
+pip install pycocotools
