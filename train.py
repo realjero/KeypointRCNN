@@ -30,15 +30,15 @@ def collate_fn(batch):
 
 
 if __name__ == '__main__':
-    train_dataset = CocoKeypoint(root="../coco/train2017",
-                                 annFile="../coco/annotations/person_keypoints_train2017.json",
+    train_dataset = CocoKeypoint(root="./coco/train2017",
+                                 annFile="./coco/annotations/person_keypoints_train2017.json",
                                  min_keypoints_per_image=11,
                                  train=True,
                                  transform=transform)
 
     # This was a dumb idea train/val/test
-    val_dataset = CocoKeypoint(root="../coco/val2017",
-                               annFile="../coco/annotations/person_keypoints_val2017.json",
+    val_dataset = CocoKeypoint(root="./coco/val2017",
+                               annFile="./coco/annotations/person_keypoints_val2017.json",
                                min_keypoints_per_image=1,
                                transform=transform_val)
 
@@ -70,10 +70,10 @@ if __name__ == '__main__':
         train_loss.append(train)
         val_loss.append(val)
 
-        torch.save(model.state_dict(), f'../temp/checkpoint_{epoch}.pth')
+        torch.save(model.state_dict(), f'./temp/checkpoint_{epoch}.pth')
 
     # save model
-    torch.save(model.state_dict(), f'../e{EPOCHS}_b{BATCH_SIZE}_lr{LEARN_RATE}_m{MOMENTUM}.pth')
+    torch.save(model.state_dict(), f'./e{EPOCHS}_b{BATCH_SIZE}_lr{LEARN_RATE}_m{MOMENTUM}.pth')
 
     plt.plot(range(0, EPOCHS), train_loss, label='Train Loss')
     plt.plot(range(0, EPOCHS), val_loss, label='Valid Loss')

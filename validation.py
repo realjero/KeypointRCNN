@@ -9,8 +9,8 @@ from utils.transforms import transform_val
 from utils.utils import device
 
 if __name__ == '__main__':
-    val_dataset = CocoKeypoint(root="../coco/val2017",
-                               annFile="../coco/annotations/person_keypoints_val2017.json",
+    val_dataset = CocoKeypoint(root="./coco/val2017",
+                               annFile="./coco/annotations/person_keypoints_val2017.json",
                                transform=transform_val)
 
     val_loader = DataLoader(val_dataset, batch_size=2, collate_fn=collate_fn)

@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import torch
 from torchvision.transforms import functional as F
 
-from coco_utils import CocoKeypoint
-from utils import plot_keypoints
+from utils.coco_utils import CocoKeypoint
+from utils.utils import plot_keypoints
 
 
 class Compose:
@@ -77,8 +77,8 @@ transform_val = Compose([
 ])
 
 if __name__ == '__main__':
-    train_dataset = CocoKeypoint(root="../../coco/val2017",
-                                 annFile="../../coco/annotations/person_keypoints_val2017.json",
+    train_dataset = CocoKeypoint(root="../coco/val2017",
+                                 annFile="../coco/annotations/person_keypoints_val2017.json",
                                  min_keypoints_per_image=11,
                                  transform=transform)
     image, targets = train_dataset[0]
