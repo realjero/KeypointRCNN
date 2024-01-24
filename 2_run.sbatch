@@ -9,4 +9,4 @@
 
 #SBATCH --container-mounts=./:/workspace
 
-python main.py
+python src/main.py
