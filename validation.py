@@ -16,7 +16,7 @@ if __name__ == '__main__':
     val_loader = DataLoader(val_dataset, batch_size=2, collate_fn=collate_fn)
 
     model = keypointrcnn_resnet50_fpn(weights="DEFAULT").to(device)
-    model.load_state_dict(torch.load("checkpoint_0.pth"))
+    model.load_state_dict(torch.load("checkpoint_5.pth"))
     model.eval()
 
     evaluator = CocoEvaluator(val_dataset.coco, ["bbox", "keypoints"])

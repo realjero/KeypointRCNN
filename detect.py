@@ -107,9 +107,9 @@ if __name__ == '__main__':
     parser.add_argument("--file", required=False, help="Path to the input file.")
     args = parser.parse_args()
 
-    model = keypointrcnn_resnet50_fpn(weights="DEFAULT").to(device)  # TODO: SET TO CORRECT MODEL
+    model = keypointrcnn_resnet50_fpn().to(device)
+    model.load_state_dict(torch.load("checkpoint_5.pth"))
     model.eval()
-    # model.load_state_dict(torch.load("checkpoint_10.pth"))
 
     with torch.no_grad():
         if not args.file:

@@ -111,6 +111,7 @@ class CocoEvaluator:
             evalCoco.params.imgIds = sorted(np.unique(self.imgIds))
             evalCoco.evaluate()
             evalCoco.accumulate()
+            print(f"Evaluation for *{iou_type}*:")
             evalCoco.summarize()
 
 
