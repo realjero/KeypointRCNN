@@ -24,7 +24,7 @@ root
 <details open>
   <summary><h3>🔰Usage </h3></summary>
 
-Make sure the required libraries are installed!
+Make sure the required [packages](#packages) are installed!
 
 <details>
   <summary><h4>🏋️Training</h4></summary>
@@ -104,7 +104,7 @@ python detect.py --file image.png
 </details>
 
 <details>
-  <summary><h4>📚Packages</h4></summary>
+  <summary id="packages"><h4>📚Packages</h4></summary>
 
 ⬇️ or check requirements.txt
 
