@@ -62,7 +62,6 @@ class CocoKeypoint(Dataset):
         boxes = torch.tensor(boxes, dtype=torch.float)
         labels = torch.tensor(labels, dtype=torch.int64)
         keypoints = torch.tensor(keypoints, dtype=torch.float)
-        image_id = torch.tensor(image_id, dtype=torch.int)
 
         targets = {
             "boxes": boxes,
@@ -109,7 +108,7 @@ class CocoEvaluator:
         cocoDt = COCO.loadRes(self.cocoGt, self.results)
         for iou_type in self.iou_types:
             evalCoco = COCOeval(self.cocoGt, cocoDt, iou_type)
-            evalCoco.params.imgIds = np.unique(self.imgIds)
+            evalCoco.params.imgIds = sorted(np.unique(self.imgIds))
             evalCoco.evaluate()
             evalCoco.accumulate()
             evalCoco.summarize()

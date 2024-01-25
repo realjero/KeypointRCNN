@@ -8,7 +8,7 @@ For training, we have used the [COCO2017-Dataset](https://cocodataset.org/)
 
 #### 📁Folder Structure
 
-````
+```
 root
 ├───coco
 │   ├───annotations
@@ -19,7 +19,7 @@ root
 │   └───val2017
 │       └───(...).jpg
 ...
-````
+```
 
 ### 🔰Usage
 Make sure the required libraries are installed!
