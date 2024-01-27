@@ -2,9 +2,16 @@
 
 **`Mert Özmeral & Jerome Habanz`**
 
+### 📝 Description
+This project implements Keypoint RCNN using PyTorch, trained on the COCO 2017 dataset. It includes a training script for model optimization, a test script for evaluation, and a user-friendly testing framework for real-time webcam analysis. The training script refines model parameters for accurate keypoint detection. The test script assesses model performance on validation data or custom images. The testing framework enables interactive webcam testing, showcasing the model's real-world capabilities. Together, these components empower users in pose estimation and related computer vision tasks.
+
 ### 🏚️Dataset
 
 For training, we have used the [COCO2017-Dataset](https://cocodataset.org/)
+- [Training Images](http://images.cocodataset.org/zips/train2017.zip)
+- [Validation Images](http://images.cocodataset.org/zips/val2017.zip)
+- [Annotations](http://images.cocodataset.org/annotations/annotations_trainval2017.zip)
+- [Data Format](https://cocodataset.org/#format-data)
 
 #### 📁Folder Structure
 
@@ -44,40 +51,40 @@ losses=4.04951 loss_classifier=0.14994 loss_box_reg=0.24355 loss_keypoint=3.5870
 </details>
 
 <details>
-  <summary><h4>✅Validation</h4></summary>
+  <summary><h4>✅Testing</h4></summary>
 
 ```
-python validation.py
+python test.py
 ```
 
 ###### Output:
 
 ```
 Evaluation for *bbox*:
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.433
- Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.728
- Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.457
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.301
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.526
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.563
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.158
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.472
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.564
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.430
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.631
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.685
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.476
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.762
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.506
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.318
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.569
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.633
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.171
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.509
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.598
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.456
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.664
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.732
  
 Evaluation for *keypoints*:
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.516
- Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.776
- Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.551
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.499
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.554
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.603
- Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.849
- Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.642
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.566
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.655
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.565
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.807
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.618
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.543
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.624
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.653
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.878
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.704
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.611
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.714
 ```
 
 </details>
@@ -105,9 +112,9 @@ python detect.py --file image.png
 
 <details>
   <summary id="packages"><h4>📚Packages</h4></summary>
+The project is compatible with 🐍Python 3.10
 
-⬇️ or check requirements.txt
-
+You can find the packages used in _requirements.txt_ or down below⬇️
 ```
 matplotlib
 numpy

@@ -11,8 +11,8 @@ from torchvision.models.detection import keypointrcnn_resnet50_fpn
 from utils.transforms import transform_val
 from utils.utils import device
 
-SCORE_THRESHOLD = 0.8
-KEYPOINT_THRESHOLD = 0.8
+SCORE_THRESHOLD = 0.9
+KEYPOINT_THRESHOLD = 0.9
 connections = [(0, 1), (0, 2), (1, 3), (2, 4), (6, 5), (5, 7), (7, 9), (6, 8), (8, 10), (5, 11), (6, 12), (12, 11),
                (11, 13), (13, 15), (12, 14), (14, 16)]
 
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     model = keypointrcnn_resnet50_fpn().to(device)
-    model.load_state_dict(torch.load("checkpoint_5.pth"))
+    model.load_state_dict(torch.load("checkpoint_33.pth"))
     model.eval()
 
     with torch.no_grad():
