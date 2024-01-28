@@ -104,10 +104,11 @@ python detect.py
 </details>
 
 <details>
-  <summary><h4>🎥Showcase Image</h4></summary>
+  <summary><h4>🎥Showcase Image/Video</h4></summary>
 
 ```
 python detect.py --file image.png
+python detect.py --file video.mp4
 ```
 
 ###### Output:

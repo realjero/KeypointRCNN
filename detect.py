@@ -1,4 +1,5 @@
 import argparse
+import os.path
 import random
 
 import cv2
@@ -9,7 +10,7 @@ from matplotlib import patches
 from torchvision.models.detection import keypointrcnn_resnet50_fpn
 
 from utils.transforms import transform_val
-from utils.utils import device
+from utils.utils import device, keypoints_on_cv2
 
 SCORE_THRESHOLD = 0.9
 KEYPOINT_THRESHOLD = 0.9
@@ -34,34 +35,55 @@ def keypoints_on_webcam(model):
         output = model(image_tensor.to(device).unsqueeze(0))[0]
         output = {k: v.to("cpu") for k, v in output.items()}
 
-        keypoints = output["keypoints"]
-        keypoints_scores = output["keypoints_scores"]
-        boxes = output["boxes"]
-        scores = output["scores"]
-
-        # Iterate through detected objects and draw bounding boxes and keypoints
-        for box, score, kpts, kpts_scores in zip(boxes, scores, keypoints, keypoints_scores):
-            if score > SCORE_THRESHOLD:
-                # Draw a bounding box around the detected object
-                box_color = (255, 0, 0)
-                cv2.rectangle(frame, (int(box[0]), int(box[1])), (int(box[2]), int(box[3])), box_color, 1)
-
-                # Draw lines connecting keypoints if their scores are above the threshold
-                for p1, p2 in connections:
-                    if kpts_scores[p1] > KEYPOINT_THRESHOLD and kpts_scores[p2] > KEYPOINT_THRESHOLD:
-                        # Generate a random color for each line
-                        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-                        x1, y1, _ = kpts[p1]
-                        x2, y2, _ = kpts[p2]
-                        cv2.circle(frame, (int(x1), int(y1)), 2, color, -1)
-                        cv2.circle(frame, (int(x2), int(y2)), 2, color, -1)
-                        cv2.line(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 1)
+        keypoints_on_cv2(frame, output, connections, SCORE_THRESHOLD, KEYPOINT_THRESHOLD)
 
         cv2.imshow('Webcam', frame)
 
         # Break the loop if 'q' key is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
+
+def keypoints_on_video(model, file):
+    cap = cv2.VideoCapture(file)
+
+    # Get video properties
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+    # Define the codec and create VideoWriter object
+    output_path = 'output_video.mp4'
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Use 'mp4v' codec for MP4
+    out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
+
+    # Loop through each frame
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        pil_image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        image_tensor, _ = transform_val(pil_image)
+
+        # Move the image tensor to the specified device and add a batch dimension
+        output = model(image_tensor.to(device).unsqueeze(0))[0]
+        output = {k: v.to("cpu") for k, v in output.items()}
+
+        # Add dots to the frame
+        frame_with_dots = keypoints_on_cv2(frame, output, connections, SCORE_THRESHOLD, KEYPOINT_THRESHOLD)
+
+        # Write the frame to the output video
+        out.write(frame_with_dots)
+
+        # Display the frame
+        cv2.imshow('Frame', frame_with_dots)
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
 
 
 def keypoints_on_image(model, file):
@@ -113,7 +135,11 @@ if __name__ == '__main__':
 
     with torch.no_grad():
         if not args.file:
-            print("Press q to close webcam")
+            print("Press q to close")
             keypoints_on_webcam(model)
         else:
-            keypoints_on_image(model, args.file)
+            _, extension = os.path.splitext(args.file)
+            if extension == '.mp4':
+                keypoints_on_video(model, args.file)
+            else:
+                keypoints_on_image(model, args.file)
