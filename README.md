@@ -29,6 +29,11 @@ root
 ...
 ```
 
+### 🔻Results
+
+###### Google Drive:
+- [e42_b8_lr0.02_m0.9.pth](https://drive.google.com/file/d/1p6MW5PYiz9c8BSYb0iLd4qx1w64Be3Ww/view?usp=sharing)
+
 <details open>
   <summary><h3>🔰Usage </h3></summary>
 
@@ -129,11 +134,6 @@ tqdm
 </details>
 
 </details>
-
-### 🔻Results
-
-###### Google Drive:
-- [e42_b8_lr0.02_m0.9.pth](https://drive.google.com/file/d/1p6MW5PYiz9c8BSYb0iLd4qx1w64Be3Ww/view?usp=sharing)
 
 
 ### 🐢References
