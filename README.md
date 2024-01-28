@@ -8,9 +8,9 @@ This project implements Keypoint RCNN using PyTorch, trained on the COCO 2017 da
 ### 🏚️Dataset
 
 For training, we have used the [COCO2017-Dataset](https://cocodataset.org/)
-- [Training Images](http://images.cocodataset.org/zips/train2017.zip)
-- [Validation Images](http://images.cocodataset.org/zips/val2017.zip)
-- [Annotations](http://images.cocodataset.org/annotations/annotations_trainval2017.zip)
+- [train2017](http://images.cocodataset.org/zips/train2017.zip)
+- [val2017](http://images.cocodataset.org/zips/val2017.zip)
+- [annotations](http://images.cocodataset.org/annotations/annotations_trainval2017.zip)
 - [Data Format](https://cocodataset.org/#format-data)
 
 #### 📁Folder Structure
@@ -25,6 +25,7 @@ root
 │   │   └───(...).jpg
 │   └───val2017
 │       └───(...).jpg
+├───e42_b8_lr0.02_m0.9.pth
 ...
 ```
 
@@ -58,33 +59,33 @@ python test.py
 ```
 
 ###### Output:
-
+36
 ```
 Evaluation for *bbox*:
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.476
- Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.762
- Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.506
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.318
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.569
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.633
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.171
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.509
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.598
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.456
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.664
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.732
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.534
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.811
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.582
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.362
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.620
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.697
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.187
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.548
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.636
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.488
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.701
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.781
  
 Evaluation for *keypoints*:
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.565
- Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.807
- Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.618
- Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.543
- Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.624
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.653
- Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.878
- Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.704
- Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.611
- Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.714
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.642
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.853
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.701
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.608
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.707
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.711
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.904
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.765
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = 0.665
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.777
 ```
 
 </details>
@@ -129,6 +130,12 @@ tqdm
 </details>
 
 </details>
+
+### 🔻Results
+
+###### Google Drive:
+- [e42_b8_lr0.02_m0.9.pth](https://drive.google.com/file/d/1p6MW5PYiz9c8BSYb0iLd4qx1w64Be3Ww/view?usp=sharing)
+
 
 ### 🐢References
 

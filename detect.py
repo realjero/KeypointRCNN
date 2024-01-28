@@ -108,7 +108,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     model = keypointrcnn_resnet50_fpn().to(device)
-    model.load_state_dict(torch.load("checkpoint_33.pth"))
+    model.load_state_dict(torch.load("e42_b8_lr0.02_m0.9.pth"))
     model.eval()
 
     with torch.no_grad():
