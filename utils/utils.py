@@ -1,5 +1,3 @@
-import random
-
 import cv2
 import torch
 from matplotlib import pyplot as plt
