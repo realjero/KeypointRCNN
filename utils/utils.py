@@ -20,6 +20,7 @@ def plot_keypoints(kpts):
             if v >= 0.9:
                 plt.scatter(x, y, color='green', marker='o', s=1)
 
+
 def keypoints_on_cv2(frame, output, connections, SCORE_THRESHOLD, KEYPOINT_THRESHOLD):
     keypoints = output["keypoints"]
     keypoints_scores = output["keypoints_scores"]
