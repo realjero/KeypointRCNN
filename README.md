@@ -112,8 +112,10 @@ python detect.py --file video.mp4
 ```
 
 ###### Output:
-
-![detected_image.png](docs%2Fassets%2Fdetected_image.png)
+<p float="left">
+    <img src="docs/assets/detected_image.png" width="500">
+    <img src="docs/assets/video.gif" width="588">
+</p>
 </details>
 
 <details>

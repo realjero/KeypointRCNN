@@ -30,14 +30,14 @@ def keypoints_on_cv2(frame, output, connections, SCORE_THRESHOLD, KEYPOINT_THRES
     for box, score, kpts, kpts_scores in zip(boxes, scores, keypoints, keypoints_scores):
         if score > SCORE_THRESHOLD:
             # Draw a bounding box around the detected object
-            box_color = (255, 0, 0)
+            # box_color = (255, 0, 0)
             # cv2.rectangle(frame, (int(box[0]), int(box[1])), (int(box[2]), int(box[3])), box_color, 1)
 
             # Draw lines connecting keypoints if their scores are above the threshold
             for p1, p2 in connections:
                 if kpts_scores[p1] > KEYPOINT_THRESHOLD and kpts_scores[p2] > KEYPOINT_THRESHOLD:
                     # Generate a random color for each line
-                    color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+                    color = (0, 255, 0)
                     x1, y1, _ = kpts[p1]
                     x2, y2, _ = kpts[p2]
                     cv2.circle(frame, (int(x1), int(y1)), 2, color, -1)
