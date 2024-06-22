@@ -107,7 +107,7 @@ python detect.py
   <summary><h4>🎥Showcase Image/Video</h4></summary>
 
 ```
-python detect.py --file image.png
+python detect.py --file image.jpg
 python detect.py --file video.mp4
 ```
 
